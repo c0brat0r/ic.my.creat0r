@@ -1,0 +1,23 @@
+name: Unzip RAR Archive
+
+on:
+  push:
+    paths:
+      - '**/*.rar'  # Запускається, коли з'являється новий .rar файл
+
+jobs:
+  unzip:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install unrar
+      run: sudo apt-get install unrar
+
+    - name: Unzip RAR archive
+      run: unrar x your-archive.rar
+
+    - name: Commit unpacked files
+      run: git add . && git commit -m "Unpacked files" && git push
